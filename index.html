@@ -22,22 +22,23 @@
         <div class="shape triangle triangle-2"></div>
     </div>
     
-    <nav class="top-nav">
+    <nav class="top-nav" role="navigation" aria-label="Main navigation">
         <div class="nav-links">
-            <a href="#home" class="nav-link active">HOME</a>
+            <a href="#home" class="nav-link active" aria-current="page">HOME</a>
             <a href="#blog" class="nav-link">BLOG</a>
             <a href="#contact" class="nav-link">CONTACT</a>
         </div>
     </nav>
 
     <div class="container">
-        <div class="content" id="home-content">
-            <div class="name-section">
+        <main class="content" id="home-content" role="main" aria-label="Home section" tabindex="-1">
+            <section class="name-section">
                 <h1 class="name">BORIL KORALSKI</h1>
-                <div class="underline"></div>
-            </div>
+                <div class="underline" aria-hidden="true"></div>
+            </section>
             
-            <div class="info-grid">
+            <section class="info-grid" aria-labelledby="personal-info">
+                <h2 id="personal-info" class="sr-only">Personal Information</h2>
                 <div class="info-item fade-up">
                     <span class="label">AGE</span>
                     <span class="value">21</span>
@@ -54,9 +55,10 @@
                     <span class="label">FIELD</span>
                     <span class="value">ACCOUNTING, FINANCE<br>& DIGITAL APPLICATIONS</span>
                 </div>
-            </div>
+            </section>
             
-            <div class="values-section">
+            <section class="values-section" aria-labelledby="values-heading">
+                <h2 id="values-heading" class="sr-only">Values and Advocacy</h2>
                 <div class="values-grid">
                     <div class="value-item">
                         <span class="value-label">FOSS ADVOCATE</span>
@@ -65,85 +67,87 @@
                         <span class="value-label">RIGHT TO REPAIR SUPPORTER</span>
                     </div>
                 </div>
-            </div>
+            </section>
             
-            <div class="status">
-                <div class="status-indicator"></div>
+            <div class="status" role="status" aria-live="polite">
+                <div class="status-indicator" aria-hidden="true"></div>
                 <span class="status-text">AVAILABLE FOR OPPORTUNITIES</span>
             </div>
-        </div>
+        </main>
 
-        <div class="content hidden" id="blog-content">
-            <div class="name-section">
+        <main class="content hidden" id="blog-content" role="main" aria-label="Blog section" tabindex="-1">
+            <section class="name-section">
                 <h1 class="page-title">BLOG</h1>
-                <div class="underline"></div>
-            </div>
-            <div class="blog-section">
+                <div class="underline" aria-hidden="true"></div>
+            </section>
+            <section class="blog-section" aria-labelledby="blog-posts-heading">
+                <h2 id="blog-posts-heading" class="sr-only">Blog Posts</h2>
                 <!-- Blog posts will be dynamically loaded here -->
-                <div class="blog-posts" id="blog-posts">
+                <div class="blog-posts" id="blog-posts" role="feed" aria-label="Blog posts feed">
                     <!-- Example blog posts - you can remove these and add real ones -->
                     <article class="blog-post" data-date="2024-01-15">
                         <h3 class="post-title">The Future of Open Source Finance</h3>
-                        <p class="post-date">January 15, 2024</p>
+                        <p class="post-date"><time datetime="2024-01-15">January 15, 2024</time></p>
                         <p class="post-excerpt">Exploring how FOSS principles are revolutionizing the financial sector...</p>
-                        <a href="#" class="read-more">Read More</a>
+                        <a href="#" class="read-more" aria-label="Read more about The Future of Open Source Finance">Read More</a>
                     </article>
                     
                     <article class="blog-post" data-date="2024-01-10">
                         <h3 class="post-title">Right to Repair in Digital Age</h3>
-                        <p class="post-date">January 10, 2024</p>
+                        <p class="post-date"><time datetime="2024-01-10">January 10, 2024</time></p>
                         <p class="post-excerpt">Why device longevity matters more than ever in our digital economy...</p>
-                        <a href="#" class="read-more">Read More</a>
+                        <a href="#" class="read-more" aria-label="Read more about Right to Repair in Digital Age">Read More</a>
                     </article>
                 </div>
                 
                 <!-- Fallback for when no posts exist -->
-                <div class="blog-placeholder" id="blog-placeholder" style="display: none;">
+                <div class="blog-placeholder" id="blog-placeholder" style="display: none;" role="status">
                     <p>Welcome to my digital space for thoughts and insights.</p>
                     <p>Here you'll find my perspectives on technology, finance, and the intersection of digital innovation with traditional business practices.</p>
                     <p>Content coming soon – stay tuned for deep dives into FOSS advocacy, sustainable technology practices, and the evolving landscape of digital finance.</p>
                 </div>
-            </div>
-            <div class="status">
-                <div class="status-indicator"></div>
+            </section>
+            <div class="status" role="status" aria-live="polite">
+                <div class="status-indicator" aria-hidden="true"></div>
                 <span class="status-text">CRAFTING MEANINGFUL CONTENT</span>
             </div>
-        </div>
+        </main>
 
-        <div class="content hidden" id="contact-content">
-            <div class="name-section">
+        <main class="content hidden" id="contact-content" role="main" aria-label="Contact section" tabindex="-1">
+            <section class="name-section">
                 <h1 class="page-title">CONTACT</h1>
-                <div class="underline"></div>
-            </div>
-            <div class="contact-section">
+                <div class="underline" aria-hidden="true"></div>
+            </section>
+            <section class="contact-section" aria-labelledby="contact-info-heading">
+                <h2 id="contact-info-heading" class="sr-only">Contact Information</h2>
                 <div class="contact-grid">
                     <div class="contact-item">
                         <span class="contact-label">EMAIL</span>
-                        <span class="contact-value"><a href="mailto:koralsky11@gmail.com">koralsky11@gmail.com</a></span>
+                        <span class="contact-value"><a href="mailto:koralsky11@gmail.com" aria-label="Send email to koralsky11@gmail.com">koralsky11@gmail.com</a></span>
                     </div>
                     <div class="contact-item">
                         <span class="contact-label">GITHUB</span>
-                        <span class="contact-value"><a href="https://github.com/borosf" target="_blank">github.com/borosf</a></span>
+                        <span class="contact-value"><a href="https://github.com/borosf" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile (opens in new tab)">github.com/borosf</a></span>
                     </div>
                     <div class="contact-item">
                         <span class="contact-label">LOCATION</span>
                         <span class="contact-value">Sofia, Bulgaria</span>
                     </div>
                 </div>
-            </div>
-            <div class="status contact-status">
-                <div class="status-indicator"></div>
+            </section>
+            <div class="status contact-status" role="status" aria-live="polite">
+                <div class="status-indicator" aria-hidden="true"></div>
                 <span class="status-text">READY TO COLLABORATE</span>
             </div>
-        </div>
+        </main>
     </div>
     
-    <div class="nav-dots">
-        <div class="dot active" data-section="home"></div>
-        <div class="dot" data-section="blog"></div>
-        <div class="dot" data-section="contact"></div>
-    </div>
+    <nav class="nav-dots" role="navigation" aria-label="Page navigation dots">
+        <div class="dot active" data-section="home" aria-label="Go to home section" role="button" tabindex="0"></div>
+        <div class="dot" data-section="blog" aria-label="Go to blog section" role="button" tabindex="0"></div>
+        <div class="dot" data-section="contact" aria-label="Go to contact section" role="button" tabindex="0"></div>
+    </nav>
     
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>

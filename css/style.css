@@ -1,3 +1,26 @@
+/* CSS Custom Properties for Performance */
+:root {
+    --animation-duration: 0.8s;
+    --animation-timing: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: 0.2s var(--animation-timing);
+    --transition-medium: 0.4s var(--animation-timing);
+    --focus-outline: 2px solid rgba(255, 255, 255, 0.8);
+    --focus-offset: 2px;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --animation-duration: 0.01s;
+    }
+    
+    *, *::before, *::after {
+        animation-duration: 0.01s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01s !important;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +34,21 @@ body {
     overflow-x: hidden;
     height: 100vh;
     position: relative;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* Top Navigation */
@@ -180,6 +218,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    outline: none; /* Remove default focus outline */
+}
+
+.content:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 4px;
 }
 
 .content.hidden {
