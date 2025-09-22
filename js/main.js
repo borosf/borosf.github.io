@@ -116,7 +116,21 @@ class PortfolioApp {
         
         if (blogPosts.length === 0) {
             // Show placeholder if no posts
-            blogPostsContainer.innerHTML = postsHTML;
+            blogPlaceholder.style.display = 'block';
+            return;
+        }
+
+        // Generate blog posts HTML
+        const postsHTML = blogPosts.map(post => `
+            <article class="blog-post" data-date="${post.date}">
+                <h3 class="post-title">${post.title}</h3>
+                <p class="post-date">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <p class="post-excerpt">${post.excerpt}</p>
+                <a href="#" class="read-more" data-slug="${post.slug}">Read More</a>
+            </article>
+        `).join('');
+        
+        blogPostsContainer.innerHTML = postsHTML;
     }
 
     openPost(slug) {
@@ -235,34 +249,4 @@ function addNewPost(title, excerpt, content = '', slug = '') {
 function removePost(slug) {
     portfolioApp.removeBlogPost(slug);
     console.log('Post removed:', slug);
-}style.display = 'none';
-            blogPlaceholder.style.display = 'block';
-            return;
-        }
-
-        // Hide placeholder and show posts
-        blogPlaceholder.style.display = 'none';
-        blogPostsContainer.style.display = 'block';
-
-        // Sort posts by date (newest first)
-        const sortedPosts = blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        // Generate HTML for posts
-        const postsHTML = sortedPosts.map(post => {
-            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-
-            return `
-                <article class="blog-post" data-date="${post.date}">
-                    <h3 class="post-title">${post.title}</h3>
-                    <p class="post-date">${formattedDate}</p>
-                    <p class="post-excerpt">${post.excerpt}</p>
-                    <a href="#" class="read-more" onclick="portfolioApp.openPost('${post.slug || post.title}')">Read More</a>
-                </article>
-            `;
-        }).join('');
-
-        blogPostsContainer.
+}
