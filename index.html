@@ -1,23 +1,63 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Boril Koralski</title><style>
-body{margin:0;background:#111;color:#fff;font-family:sans-serif;overflow-x:hidden}section{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;text-align:center}h1{font-size:4em;margin:0;letter-spacing:.1em}p{max-width:600px;line-height:1.4em;margin:1em 0}a{color:#fff;text-decoration:none;border:2px solid #fff;padding:.5em 1em;transition:.3s}a:hover{background:#fff;color:#111}svg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1}line,rect,polygon{stroke:#fff;stroke-width:1;fill:none;stroke-linecap:round;stroke-linejoin:round}@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
-</style></head><body>
-
-<svg>
-<line x1="0" y1="10%" x2="100%" y2="10%"/>
-<line x1="0" y1="50%" x2="100%" y2="50%"/>
-<line x1="0" y1="90%" x2="100%" y2="90%"/>
-<polygon points="50,10 60,30 40,30"/>
-</svg>
-
-<section>
-<h1>Boril Koralski</h1>
-<p>Student at Sofia University, Bulgaria. Accounting, Finance & Digital Applications. Linux user, FOSS advocate, Right to Repair supporter.</p>
-<a href="#about">About Me</a>
-</section>
-
-<section id="about">
-<h1>About</h1>
-<p>Hello! I build sleek, efficient, geometric websites. Monochrome, minimal, fast-loading. Optimized for performance and style.</p>
-</section>
-
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boril Koralski | Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="geometric-bg">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="square square-1"></div>
+        <div class="square square-2"></div>
+        <div class="triangle triangle-1"></div>
+        <div class="triangle triangle-2"></div>
+    </div>
+    
+    <div class="container">
+        <div class="content">
+            <div class="name-section">
+                <h1 class="name">BORIL KORALSKI</h1>
+                <div class="underline"></div>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-item fade-up">
+                    <span class="label">AGE</span>
+                    <span class="value">21</span>
+                </div>
+                <div class="info-item fade-up">
+                    <span class="label">LOCATION</span>
+                    <span class="value">SOFIA, BG</span>
+                </div>
+                <div class="info-item fade-up">
+                    <span class="label">UNIVERSITY</span>
+                    <span class="value">SOFIA UNIVERSITY</span>
+                </div>
+                <div class="info-item fade-up">
+                    <span class="label">FIELD</span>
+                    <span class="value">ACCOUNTING, FINANCE<br>& DIGITAL APPLICATIONS</span>
+                </div>
+            </div>
+            
+            <div class="status">
+                <div class="status-indicator"></div>
+                <span class="status-text">AVAILABLE FOR OPPORTUNITIES</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="nav-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
