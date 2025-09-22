@@ -593,8 +593,8 @@ body.app-init-failed .content.hidden {
 }
 
 .dot {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.3);
     border: none;
@@ -612,8 +612,8 @@ body.app-init-failed .content.hidden {
 .dot.active,
 .dot:hover {
     background: #fff;
-    transform: scale(1.3);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transform: scale(1.5);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
 }
 
 /* Animations */
