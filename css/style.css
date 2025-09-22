@@ -61,6 +61,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* Skip Link for Accessibility */
 .skip-link {
     position: absolute;
@@ -593,15 +597,16 @@ body.app-init-failed .content.hidden {
 }
 
 .dot {
-    width: 3px;
-    height: 3px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    border: none;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 6px; /* Smaller touch target */
-    margin: -6px; /* Negative margin to keep visual size */
+    padding: 4px; /* Touch target */
+    margin: -4px; /* Negative margin to keep visual size */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .dot:focus {
@@ -609,11 +614,18 @@ body.app-init-failed .content.hidden {
     outline-offset: 2px;
 }
 
-.dot.active,
 .dot:hover {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dot.active {
     background: #fff;
-    transform: scale(1.5);
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Animations */
