@@ -43,8 +43,8 @@
     <!-- Main Navigation -->
     <nav class="top-nav" role="navigation" aria-label="Main navigation">
         <ul class="nav-links" role="menubar">
-            <li role="none"><a href="#home" class="nav-link active" role="menuitem" aria-current="page">HOME</a></li>
-            <li role="none"><a href="#blog" class="nav-link" role="menuitem">BLOG</a></li>
+            <li role="none"><a href="index.html" class="nav-link active" role="menuitem" aria-current="page">HOME</a></li>
+            <li role="none"><a href="blog.html" class="nav-link" role="menuitem">BLOG</a></li>
             <li role="none"><a href="#contact" class="nav-link" role="menuitem">CONTACT</a></li>
         </ul>
     </nav>
@@ -94,43 +94,6 @@
             </div>
         </section>
 
-        <!-- Blog Section -->
-        <section class="content hidden" id="blog-content" aria-labelledby="blog-title">
-            <header class="name-section">
-                <h1 id="blog-title" class="page-title">BLOG</h1>
-                <div class="underline" aria-hidden="true"></div>
-            </header>
-            <div class="blog-section">
-                <!-- Blog posts will be dynamically loaded here -->
-                <div class="blog-posts" id="blog-posts" role="feed" aria-label="Blog posts">
-                    <!-- Example blog posts - you can remove these and add real ones -->
-                    <article class="blog-post card" data-date="2024-01-15">
-                        <h3 class="post-title">The Future of Open Source Finance</h3>
-                        <p class="post-date"><time datetime="2024-01-15">January 15, 2024</time></p>
-                        <p class="post-excerpt" id="post-1-excerpt">Exploring how FOSS principles are revolutionizing the financial sector...</p>
-                        <a href="#" class="read-more interactive-link" aria-describedby="post-1-excerpt">Read More</a>
-                    </article>
-                    
-                    <article class="blog-post card" data-date="2024-01-10">
-                        <h3 class="post-title">Right to Repair in Digital Age</h3>
-                        <p class="post-date"><time datetime="2024-01-10">January 10, 2024</time></p>
-                        <p class="post-excerpt" id="post-2-excerpt">Why device longevity matters more than ever in our digital economy...</p>
-                        <a href="#" class="read-more interactive-link" aria-describedby="post-2-excerpt">Read More</a>
-                    </article>
-                </div>
-                
-                <!-- Fallback for when no posts exist -->
-                <div class="blog-placeholder" id="blog-placeholder" style="display: none;">
-                    <p>Welcome to my digital space for thoughts and insights.</p>
-                    <p>Here you'll find my perspectives on technology, finance, and the intersection of digital innovation with traditional business practices.</p>
-                    <p>Content coming soon – stay tuned for deep dives into FOSS advocacy, sustainable technology practices, and the evolving landscape of digital finance.</p>
-                </div>
-            </div>
-            <div class="status" role="status" aria-live="polite">
-                <div class="status-indicator" aria-hidden="true"></div>
-                <span class="status-text">CRAFTING MEANINGFUL CONTENT</span>
-            </div>
-        </section>
 
         <!-- Contact Section -->
         <section class="content hidden" id="contact-content" aria-labelledby="contact-title">
@@ -168,21 +131,10 @@
     <!-- Secondary Navigation (Dots) -->
     <nav class="nav-dots" role="navigation" aria-label="Page navigation">
         <button class="dot active" data-section="home" aria-label="Go to home section" aria-current="page"></button>
-        <button class="dot" data-section="blog" aria-label="Go to blog section"></button>
         <button class="dot" data-section="contact" aria-label="Go to contact section"></button>
     </nav>
     
-    <!-- Copyright Footer -->
-    <footer class="copyright-footer" role="contentinfo">
-        <div class="copyright-content">
-            <p>&copy; 2024 Boril Koralski. All rights reserved.</p>
-            <p class="license-notice">
-                Personal information and content on this website are protected by copyright. 
-                Use of personal information for malicious purposes, harassment, or unauthorized commercial activities is strictly prohibited. 
-                Educational and professional networking use is permitted with proper attribution.
-            </p>
-        </div>
-    </footer>
+
     
     <!-- Optimized Script Loading -->
     <script src="js/main.js" defer></script>

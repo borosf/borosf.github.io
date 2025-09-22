@@ -36,9 +36,14 @@ class PortfolioApp {
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = link.getAttribute('href').substring(1);
-                this.switchSection(section);
+                const href = link.getAttribute('href');
+                // Only prevent default for hash links (contact)
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const section = href.substring(1);
+                    this.switchSection(section);
+                }
+                // Let regular links (index.html, blog.html) work normally
             });
         });
 
@@ -62,7 +67,7 @@ class PortfolioApp {
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            const sections = ['home', 'blog', 'contact'];
+            const sections = ['home', 'contact'];
             const currentIndex = sections.indexOf(this.currentSection);
             
             switch(e.key) {
