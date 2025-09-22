@@ -597,16 +597,16 @@ body.app-init-failed .content.hidden {
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 4px; /* Touch target */
     margin: -4px; /* Negative margin to keep visual size */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .dot:focus {
@@ -615,17 +615,17 @@ body.app-init-failed .content.hidden {
 }
 
 .dot:hover {
-    background: rgba(255, 255, 255, 0.7);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: scale(1.1);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .dot.active {
     background: #fff;
-    border-color: rgba(255, 255, 255, 0.8);
-    transform: scale(1.2);
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 3px 8px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.4);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Animations */
