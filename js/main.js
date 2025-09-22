@@ -1,239 +1,268 @@
-// Smooth loading and performance optimization
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize animations
-    initializeAnimations();
-    
-    // Setup navigation
-    setupNavigation();
-    
-    // Setup top navigation
-    setupTopNavigation();
-    
-    // Add keyboard navigation
-    setupKeyboardNavigation();
-    
-    // Optimize performance
-    optimizePerformance();
-});
+// Blog posts data - Add your posts here
+const blogPosts = [
+    {
+        title: "The Future of Open Source Finance",
+        date: "2024-01-15",
+        excerpt: "Exploring how FOSS principles are revolutionizing the financial sector and creating more transparent, accessible financial tools for everyone.",
+        content: "Your full blog post content goes here...", // Optional: for full post view
+        slug: "future-of-open-source-finance" // Optional: for URL routing
+    },
+    {
+        title: "Right to Repair in Digital Age",
+        date: "2024-01-10",
+        excerpt: "Why device longevity matters more than ever in our digital economy, and how the right to repair movement is shaping sustainable technology practices.",
+        content: "Your full blog post content goes here...",
+        slug: "right-to-repair-digital-age"
+    }
+    // Add more posts here as needed
+];
 
-// Setup top navigation functionality
-function setupTopNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const contents = document.querySelectorAll('.content');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Remove active class from all nav links
-            navLinks.forEach(nl => nl.classList.remove('active'));
-            // Add active class to clicked link
-            link.classList.add('active');
-            
-            // Hide all content sections
-            contents.forEach(content => content.classList.add('hidden'));
-            
-            // Show selected content
-            const targetId = link.getAttribute('href').substring(1) + '-content';
-            const targetContent = document.getElementById(targetId);
-            
-            if (targetContent) {
-                setTimeout(() => {
-                    targetContent.classList.remove('hidden');
-                }, 250);
-            }
-            
-            // Update page transition
-            triggerPageTransition();
+// Optimized and streamlined JavaScript
+class PortfolioApp {
+    constructor() {
+        this.currentSection = 'home';
+        this.init();
+    }
+
+    init() {
+        this.setupNavigation();
+        this.initializeAnimations();
+        this.loadBlogPosts();
+        this.optimizePerformance();
+    }
+
+    setupNavigation() {
+        // Top navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.getAttribute('href').substring(1);
+                this.switchSection(section);
+            });
         });
-    });
-}
 
-// Initialize fade-up animations for info items
-function initializeAnimations() {
-    const infoItems = document.querySelectorAll('.info-item');
-    
-    // Add intersection observer for better performance
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-up');
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-    
-    infoItems.forEach(item => observer.observe(item));
-}
-
-// Setup navigation dots functionality
-function setupNavigation() {
-    const dots = document.querySelectorAll('.dot');
-    
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            // Remove active class from all dots
-            dots.forEach(d => d.classList.remove('active'));
-            // Add active class to clicked dot
-            dot.classList.add('active');
-            
-            // Trigger page transition effect
-            triggerPageTransition(index);
-        });
-    });
-}
-
-// Keyboard navigation
-function setupKeyboardNavigation() {
-    document.addEventListener('keydown', (e) => {
+        // Side navigation dots
         const dots = document.querySelectorAll('.dot');
-        const activeDot = document.querySelector('.dot.active');
-        const activeIndex = Array.from(dots).indexOf(activeDot);
-        
-        switch(e.key) {
-            case 'ArrowUp':
-                e.preventDefault();
-                if (activeIndex > 0) {
-                    dots[activeIndex].classList.remove('active');
-                    dots[activeIndex - 1].classList.add('active');
-                    triggerPageTransition(activeIndex - 1);
-                }
-                break;
-            case 'ArrowDown':
-                e.preventDefault();
-                if (activeIndex < dots.length - 1) {
-                    dots[activeIndex].classList.remove('active');
-                    dots[activeIndex + 1].classList.add('active');
-                    triggerPageTransition(activeIndex + 1);
-                }
-                break;
-        }
-    });
-}
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const section = dot.getAttribute('data-section');
+                this.switchSection(section);
+            });
+        });
 
-// Page transition effect
-function triggerPageTransition(index = null) {
-    const activeContent = document.querySelector('.content:not(.hidden)');
-    
-    if (activeContent) {
-        // Add subtle transition effect
-        activeContent.style.transform = 'scale(0.98)';
-        activeContent.style.opacity = '0.8';
-        
-        setTimeout(() => {
-            activeContent.style.transform = 'scale(1)';
-            activeContent.style.opacity = '1';
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const sections = ['home', 'blog', 'contact'];
+            const currentIndex = sections.indexOf(this.currentSection);
             
-            // Change content based on index (for side navigation)
-            if (index !== null) {
-                updateContent(index);
+            switch(e.key) {
+                case 'ArrowUp':
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    if (currentIndex > 0) {
+                        this.switchSection(sections[currentIndex - 1]);
+                    }
+                    break;
+                case 'ArrowDown':
+                case 'ArrowRight':
+                    e.preventDefault();
+                    if (currentIndex < sections.length - 1) {
+                        this.switchSection(sections[currentIndex + 1]);
+                    }
+                    break;
             }
-        }, 200);
+        });
     }
-}
 
-// Update content based on navigation (placeholder for future expansion)
-function updateContent(index) {
-    // This function can be expanded to show different sections
-    // For now, it just adds a subtle visual feedback
-    const statusText = document.querySelector('.status-text');
-    
-    switch(index) {
-        case 0:
-            statusText.textContent = 'AVAILABLE FOR OPPORTUNITIES';
-            break;
-        case 1:
-            statusText.textContent = 'EXPLORING NEW PROJECTS';
-            break;
-        case 2:
-            statusText.textContent = 'CONTINUOUS LEARNING';
-            break;
-    }
-}
+    switchSection(section) {
+        if (section === this.currentSection) return;
 
-// Performance optimizations
-function optimizePerformance() {
-    // Reduce motion for users who prefer it
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const style = document.createElement('style');
-        style.textContent = `
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    // Debounce resize events
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            // Handle resize optimizations
-            optimizeGeometricShapes();
-        }, 150);
-    });
-}
+        // Update navigation states
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${section}`);
+        });
 
-// Optimize geometric shapes for mobile
-function optimizeGeometricShapes() {
-    const shapes = document.querySelectorAll('.geometric-bg > *');
-    const isMobile = window.innerWidth <= 768;
-    
-    shapes.forEach(shape => {
-        if (isMobile) {
-            shape.style.animationDuration = '12s';
-        } else {
-            shape.style.animationDuration = '8s';
+        document.querySelectorAll('.dot').forEach(dot => {
+            dot.classList.toggle('active', dot.getAttribute('data-section') === section);
+        });
+
+        // Switch content with smooth transition
+        const currentContent = document.getElementById(`${this.currentSection}-content`);
+        const targetContent = document.getElementById(`${section}-content`);
+
+        if (currentContent && targetContent) {
+            currentContent.style.transform = 'scale(0.95)';
+            currentContent.style.opacity = '0';
+            
+            setTimeout(() => {
+                currentContent.classList.add('hidden');
+                targetContent.classList.remove('hidden');
+                
+                // Reset and animate new content
+                requestAnimationFrame(() => {
+                    targetContent.style.transform = 'scale(1)';
+                    targetContent.style.opacity = '1';
+                });
+            }, 200);
         }
-    });
-}
 
-// Add subtle mouse movement parallax effect
-let mouseX = 0;
-let mouseY = 0;
-let targetX = 0;
-let targetY = 0;
+        this.currentSection = section;
+    }
 
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-function updateParallax() {
-    targetX += (mouseX - targetX) * 0.02;
-    targetY += (mouseY - targetY) * 0.02;
-    
-    const shapes = document.querySelectorAll('.geometric-bg > *');
-    shapes.forEach((shape, index) => {
-        const speed = (index + 1) * 0.5;
-        const x = (targetX - window.innerWidth / 2) * speed * 0.01;
-        const y = (targetY - window.innerHeight / 2) * speed * 0.01;
+    loadBlogPosts() {
+        const blogPostsContainer = document.getElementById('blog-posts');
+        const blogPlaceholder = document.getElementById('blog-placeholder');
         
-        shape.style.transform = `translate(${x}px, ${y}px) ${shape.style.transform || ''}`;
+        if (blogPosts.length === 0) {
+            // Show placeholder if no posts
+            blogPostsContainer.innerHTML = postsHTML;
+    }
+
+    openPost(slug) {
+        // This function handles opening individual blog posts
+        // You can implement this to show full post content or redirect to a dedicated post page
+        console.log('Opening post:', slug);
+        
+        // Example: You could implement a modal or navigate to a separate page
+        // For now, this just logs the action
+        alert('Blog post functionality - you can implement full post viewing here!');
+    }
+
+    initializeAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-up');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '50px' });
+
+        document.querySelectorAll('.info-item').forEach(item => {
+            observer.observe(item);
+        });
+    }
+
+    optimizePerformance() {
+        // Reduce motion for accessibility
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.setProperty('--animation-duration', '0.01s');
+        }
+
+        // Optimize geometric shapes on resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                this.optimizeShapes();
+            }, 150);
+        });
+
+        // Initial shape optimization
+        this.optimizeShapes();
+    }
+
+    optimizeShapes() {
+        const shapes = document.querySelectorAll('.shape');
+        const isMobile = window.innerWidth <= 768;
+        
+        shapes.forEach(shape => {
+            if (isMobile) {
+                shape.style.animationDuration = '16s';
+                shape.style.opacity = '0.03';
+            } else {
+                shape.style.animationDuration = '12s';
+                shape.style.opacity = '0.05';
+            }
+        });
+    }
+
+    // Method to add new blog posts dynamically
+    addBlogPost(post) {
+        blogPosts.unshift(post); // Add to beginning of array
+        this.loadBlogPosts(); // Reload the blog posts
+    }
+
+    // Method to remove blog posts
+    removeBlogPost(slug) {
+        const index = blogPosts.findIndex(post => (post.slug || post.title) === slug);
+        if (index > -1) {
+            blogPosts.splice(index, 1);
+            this.loadBlogPosts();
+        }
+    }
+}
+
+// Global variable to access the app instance
+let portfolioApp;
+
+// Initialize app when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        portfolioApp = new PortfolioApp();
     });
-    
-    requestAnimationFrame(updateParallax);
+} else {
+    portfolioApp = new PortfolioApp();
 }
 
-// Only enable parallax on desktop for performance
-if (window.innerWidth > 768) {
-    requestAnimationFrame(updateParallax);
-}
-
-// Add loading optimization
+// Preload optimization
 window.addEventListener('load', () => {
-    // Mark page as fully loaded
-    document.body.classList.add('loaded');
-    
-    // Preload any additional resources if needed
-    preloadResources();
+    document.body.style.opacity = '1';
 });
 
-function preloadResources() {
-    // Preload any additional assets for future sections
-    // This keeps the site fast and responsive
+// Helper functions for blog management
+// You can call these from the browser console or integrate them into your workflow
+
+// Example: Add a new blog post
+function addNewPost(title, excerpt, content = '', slug = '') {
+    const today = new Date().toISOString().split('T')[0];
+    const newPost = {
+        title: title,
+        date: today,
+        excerpt: excerpt,
+        content: content,
+        slug: slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+    };
+    
+    portfolioApp.addBlogPost(newPost);
+    console.log('New post added:', newPost);
 }
+
+// Example usage (call this in browser console):
+// addNewPost("My New Blog Post", "This is the excerpt for my new post", "Full content here", "my-new-post");
+
+// Example: Remove a blog post
+function removePost(slug) {
+    portfolioApp.removeBlogPost(slug);
+    console.log('Post removed:', slug);
+}style.display = 'none';
+            blogPlaceholder.style.display = 'block';
+            return;
+        }
+
+        // Hide placeholder and show posts
+        blogPlaceholder.style.display = 'none';
+        blogPostsContainer.style.display = 'block';
+
+        // Sort posts by date (newest first)
+        const sortedPosts = blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Generate HTML for posts
+        const postsHTML = sortedPosts.map(post => {
+            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            return `
+                <article class="blog-post" data-date="${post.date}">
+                    <h3 class="post-title">${post.title}</h3>
+                    <p class="post-date">${formattedDate}</p>
+                    <p class="post-excerpt">${post.excerpt}</p>
+                    <a href="#" class="read-more" onclick="portfolioApp.openPost('${post.slug || post.title}')">Read More</a>
+                </article>
+            `;
+        }).join('');
+
+        blogPostsContainer.
