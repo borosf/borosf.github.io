@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Boril Koralski</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Boril Koralski's Blog - Thoughts on FOSS, Finance, and Digital Innovation">
+    <meta name="author" content="Boril Koralski">
+    <meta name="keywords" content="Boril Koralski, FOSS, Open Source, Finance, Digital Applications, Blog">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Blog | Boril Koralski">
+    <meta property="og:description" content="Thoughts on FOSS, Finance, and Digital Innovation">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://borosf.github.io/blog.html">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Blog | Boril Koralski">
+    <meta name="twitter:description" content="Thoughts on FOSS, Finance, and Digital Innovation">
+</head>
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Decorative background shapes -->
+    <div class="geometric-bg" aria-hidden="true">
+        <div class="shape circle circle-1"></div>
+        <div class="shape circle circle-2"></div>
+        <div class="shape square square-1"></div>
+        <div class="shape square square-2"></div>
+        <div class="shape triangle triangle-1"></div>
+        <div class="shape triangle triangle-2"></div>
+    </div>
+    
+    <!-- Main Navigation -->
+    <nav class="top-nav" role="navigation" aria-label="Main navigation">
+        <ul class="nav-links" role="menubar">
+            <li role="none"><a href="index.html" class="nav-link" role="menuitem">HOME</a></li>
+            <li role="none"><a href="blog.html" class="nav-link active" role="menuitem" aria-current="page">BLOG</a></li>
+            <li role="none"><a href="index.html#contact" class="nav-link" role="menuitem">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="container" id="main-content" role="main">
+        <!-- Blog Section -->
+        <section class="content" id="blog-content" aria-labelledby="blog-title">
+            <header class="name-section">
+                <h1 id="blog-title" class="page-title">BLOG</h1>
+                <div class="underline" aria-hidden="true"></div>
+            </header>
+            <div class="blog-section">
+                <!-- Blog posts will be dynamically loaded here -->
+                <div class="blog-posts" id="blog-posts" role="feed" aria-label="Blog posts">
+                    <!-- Example blog posts - you can remove these and add real ones -->
+                    <article class="blog-post card" data-date="2024-01-15">
+                        <h3 class="post-title">The Future of Open Source Finance</h3>
+                        <p class="post-date"><time datetime="2024-01-15">January 15, 2024</time></p>
+                        <p class="post-excerpt" id="post-1-excerpt">Exploring how FOSS principles are revolutionizing the financial sector and creating more transparent, accessible financial tools for everyone.</p>
+                        <a href="#" class="read-more interactive-link" aria-describedby="post-1-excerpt">Read More</a>
+                    </article>
+                    
+                    <article class="blog-post card" data-date="2024-01-10">
+                        <h3 class="post-title">Right to Repair in Digital Age</h3>
+                        <p class="post-date"><time datetime="2024-01-10">January 10, 2024</time></p>
+                        <p class="post-excerpt" id="post-2-excerpt">Why device longevity matters more than ever in our digital economy, and how the right to repair movement is shaping sustainable technology practices.</p>
+                        <a href="#" class="read-more interactive-link" aria-describedby="post-2-excerpt">Read More</a>
+                    </article>
+                </div>
+                
+                <!-- Fallback for when no posts exist -->
+                <div class="blog-placeholder" id="blog-placeholder" style="display: none;">
+                    <p>Welcome to my digital space for thoughts and insights.</p>
+                    <p>Here you'll find my perspectives on technology, finance, and the intersection of digital innovation with traditional business practices.</p>
+                    <p>Content coming soon – stay tuned for deep dives into FOSS advocacy, sustainable technology practices, and the evolving landscape of digital finance.</p>
+                </div>
+            </div>
+            <div class="status" role="status" aria-live="polite">
+                <div class="status-indicator" aria-hidden="true"></div>
+                <span class="status-text">CRAFTING MEANINGFUL CONTENT</span>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Optimized Script Loading -->
+    <script src="js/main.js" defer></script>
+</body>
+</html>
