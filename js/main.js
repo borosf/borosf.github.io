@@ -6,12 +6,48 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup navigation
     setupNavigation();
     
+    // Setup top navigation
+    setupTopNavigation();
+    
     // Add keyboard navigation
     setupKeyboardNavigation();
     
     // Optimize performance
     optimizePerformance();
 });
+
+// Setup top navigation functionality
+function setupTopNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contents = document.querySelectorAll('.content');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Remove active class from all nav links
+            navLinks.forEach(nl => nl.classList.remove('active'));
+            // Add active class to clicked link
+            link.classList.add('active');
+            
+            // Hide all content sections
+            contents.forEach(content => content.classList.add('hidden'));
+            
+            // Show selected content
+            const targetId = link.getAttribute('href').substring(1) + '-content';
+            const targetContent = document.getElementById(targetId);
+            
+            if (targetContent) {
+                setTimeout(() => {
+                    targetContent.classList.remove('hidden');
+                }, 250);
+            }
+            
+            // Update page transition
+            triggerPageTransition();
+        });
+    });
+}
 
 // Initialize fade-up animations for info items
 function initializeAnimations() {
@@ -77,20 +113,24 @@ function setupKeyboardNavigation() {
 }
 
 // Page transition effect
-function triggerPageTransition(index) {
-    const content = document.querySelector('.content');
+function triggerPageTransition(index = null) {
+    const activeContent = document.querySelector('.content:not(.hidden)');
     
-    // Add subtle transition effect
-    content.style.transform = 'scale(0.98)';
-    content.style.opacity = '0.8';
-    
-    setTimeout(() => {
-        content.style.transform = 'scale(1)';
-        content.style.opacity = '1';
+    if (activeContent) {
+        // Add subtle transition effect
+        activeContent.style.transform = 'scale(0.98)';
+        activeContent.style.opacity = '0.8';
         
-        // Change content based on index (placeholder for future sections)
-        updateContent(index);
-    }, 200);
+        setTimeout(() => {
+            activeContent.style.transform = 'scale(1)';
+            activeContent.style.opacity = '1';
+            
+            // Change content based on index (for side navigation)
+            if (index !== null) {
+                updateContent(index);
+            }
+        }, 200);
+    }
 }
 
 // Update content based on navigation (placeholder for future expansion)
