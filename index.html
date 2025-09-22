@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta name="description" content="Boril Koralski - 21-year-old student at Sofia University studying Accounting, Finance & Digital Applications">
+    <meta name="author" content="Boril Koralski">
+    <meta name="theme-color" content="#000000">
 </head>
 <body>
     <div class="geometric-bg">
@@ -19,8 +22,16 @@
         <div class="triangle triangle-2"></div>
     </div>
     
+    <nav class="top-nav">
+        <div class="nav-links">
+            <a href="#home" class="nav-link active">HOME</a>
+            <a href="#blog" class="nav-link">BLOG</a>
+            <a href="#contact" class="nav-link">CONTACT</a>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="content">
+        <div class="content" id="home-content">
             <div class="name-section">
                 <h1 class="name">BORIL KORALSKI</h1>
                 <div class="underline"></div>
@@ -37,7 +48,7 @@
                 </div>
                 <div class="info-item fade-up">
                     <span class="label">UNIVERSITY</span>
-                    <span class="value">SOFIA UNIVERSITY</span>
+                    <span class="value">ST. KLIMENT OHRIDSKI<br>SOFIA UNIVERSITY</span>
                 </div>
                 <div class="info-item fade-up">
                     <span class="label">FIELD</span>
@@ -45,9 +56,58 @@
                 </div>
             </div>
             
+            <div class="values-section fade-up">
+                <div class="values-grid">
+                    <div class="value-item">
+                        <span class="value-label">FOSS ADVOCATE</span>
+                    </div>
+                    <div class="value-item">
+                        <span class="value-label">RIGHT TO REPAIR SUPPORTER</span>
+                    </div>
+                </div>
+            </div>
+            
             <div class="status">
                 <div class="status-indicator"></div>
                 <span class="status-text">AVAILABLE FOR OPPORTUNITIES</span>
+            </div>
+        </div>
+
+        <div class="content hidden" id="blog-content">
+            <div class="page-header">
+                <h1 class="page-title">BLOG</h1>
+                <div class="underline"></div>
+            </div>
+            <div class="blog-section">
+                <div class="blog-placeholder">
+                    <p>Blog posts coming soon...</p>
+                    <p>Stay tuned for insights on technology, finance, and digital applications.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content hidden" id="contact-content">
+            <div class="page-header">
+                <h1 class="page-title">CONTACT</h1>
+                <div class="underline"></div>
+            </div>
+            <div class="contact-section">
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <span class="contact-label">EMAIL</span>
+                        <span class="contact-value">koralsky11@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">GITHUB</span>
+                        <span class="contact-value">github.com/borosf</span>
+                    </div>
+                    <div class="contact-item">
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">LOCATION</span>
+                        <span class="contact-value">Sofia, Bulgaria</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
