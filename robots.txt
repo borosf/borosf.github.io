@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Allow crawling of main pages
+Allow: /index.html
+Allow: /css/
+Allow: /js/
+
+# Disallow any sensitive directories (none currently)
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://borosf.github.io/sitemap.xml
+
+# Crawl delay to be respectful
+Crawl-delay: 1
