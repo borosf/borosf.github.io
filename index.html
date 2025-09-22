@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boril Koralski | Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -14,12 +14,12 @@
 </head>
 <body>
     <div class="geometric-bg">
-        <div class="circle circle-1"></div>
-        <div class="circle circle-2"></div>
-        <div class="square square-1"></div>
-        <div class="square square-2"></div>
-        <div class="triangle triangle-1"></div>
-        <div class="triangle triangle-2"></div>
+        <div class="shape circle circle-1"></div>
+        <div class="shape circle circle-2"></div>
+        <div class="shape square square-1"></div>
+        <div class="shape square square-2"></div>
+        <div class="shape triangle triangle-1"></div>
+        <div class="shape triangle triangle-2"></div>
     </div>
     
     <nav class="top-nav">
@@ -56,7 +56,7 @@
                 </div>
             </div>
             
-            <div class="values-section fade-up">
+            <div class="values-section">
                 <div class="values-grid">
                     <div class="value-item">
                         <span class="value-label">FOSS ADVOCATE</span>
@@ -74,20 +74,44 @@
         </div>
 
         <div class="content hidden" id="blog-content">
-            <div class="page-header">
+            <div class="name-section">
                 <h1 class="page-title">BLOG</h1>
                 <div class="underline"></div>
             </div>
             <div class="blog-section">
-                <div class="blog-placeholder">
-                    <p>Blog posts coming soon...</p>
-                    <p>Stay tuned for insights on technology, finance, and digital applications.</p>
+                <!-- Blog posts will be dynamically loaded here -->
+                <div class="blog-posts" id="blog-posts">
+                    <!-- Example blog posts - you can remove these and add real ones -->
+                    <article class="blog-post" data-date="2024-01-15">
+                        <h3 class="post-title">The Future of Open Source Finance</h3>
+                        <p class="post-date">January 15, 2024</p>
+                        <p class="post-excerpt">Exploring how FOSS principles are revolutionizing the financial sector...</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </article>
+                    
+                    <article class="blog-post" data-date="2024-01-10">
+                        <h3 class="post-title">Right to Repair in Digital Age</h3>
+                        <p class="post-date">January 10, 2024</p>
+                        <p class="post-excerpt">Why device longevity matters more than ever in our digital economy...</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </article>
                 </div>
+                
+                <!-- Fallback for when no posts exist -->
+                <div class="blog-placeholder" id="blog-placeholder" style="display: none;">
+                    <p>Welcome to my digital space for thoughts and insights.</p>
+                    <p>Here you'll find my perspectives on technology, finance, and the intersection of digital innovation with traditional business practices.</p>
+                    <p>Content coming soon – stay tuned for deep dives into FOSS advocacy, sustainable technology practices, and the evolving landscape of digital finance.</p>
+                </div>
+            </div>
+            <div class="status">
+                <div class="status-indicator"></div>
+                <span class="status-text">CRAFTING MEANINGFUL CONTENT</span>
             </div>
         </div>
 
         <div class="content hidden" id="contact-content">
-            <div class="page-header">
+            <div class="name-section">
                 <h1 class="page-title">CONTACT</h1>
                 <div class="underline"></div>
             </div>
@@ -95,11 +119,11 @@
                 <div class="contact-grid">
                     <div class="contact-item">
                         <span class="contact-label">EMAIL</span>
-                        <span class="contact-value">koralsky11@gmail.com</span>
+                        <span class="contact-value"><a href="mailto:koralsky11@gmail.com">koralsky11@gmail.com</a></span>
                     </div>
                     <div class="contact-item">
                         <span class="contact-label">GITHUB</span>
-                        <span class="contact-value">github.com/borosf</span>
+                        <span class="contact-value"><a href="https://github.com/borosf" target="_blank">github.com/borosf</a></span>
                     </div>
                     <div class="contact-item">
                         <span class="contact-label">LOCATION</span>
@@ -107,15 +131,19 @@
                     </div>
                 </div>
             </div>
+            <div class="status contact-status">
+                <div class="status-indicator"></div>
+                <span class="status-text">READY TO COLLABORATE</span>
+            </div>
         </div>
     </div>
     
     <div class="nav-dots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+        <div class="dot active" data-section="home"></div>
+        <div class="dot" data-section="blog"></div>
+        <div class="dot" data-section="contact"></div>
     </div>
     
-    <script src="js/script.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
