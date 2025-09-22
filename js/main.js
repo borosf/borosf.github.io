@@ -116,7 +116,37 @@ class PortfolioApp {
         
         if (blogPosts.length === 0) {
             // Show placeholder if no posts
-            blogPostsContainer.innerHTML = postsHTML;
+            blogPlaceholder.style.display = 'block';
+            blogPostsContainer.style.display = 'none';
+            return;
+        }
+
+        // Hide placeholder and show posts
+        blogPlaceholder.style.display = 'none';
+        blogPostsContainer.style.display = 'block';
+
+        // Sort posts by date (newest first)
+        const sortedPosts = blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Generate HTML for posts
+        const postsHTML = sortedPosts.map(post => {
+            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            return `
+                <article class="blog-post" data-date="${post.date}">
+                    <h3 class="post-title">${post.title}</h3>
+                    <p class="post-date">${formattedDate}</p>
+                    <p class="post-excerpt">${post.excerpt}</p>
+                    <a href="#" class="read-more" onclick="portfolioApp.openPost('${post.slug || post.title}')">Read More</a>
+                </article>
+            `;
+        }).join('');
+
+        blogPostsContainer.innerHTML = postsHTML;
     }
 
     openPost(slug) {
@@ -235,34 +265,27 @@ function addNewPost(title, excerpt, content = '', slug = '') {
 function removePost(slug) {
     portfolioApp.removeBlogPost(slug);
     console.log('Post removed:', slug);
-}style.display = 'none';
-            blogPlaceholder.style.display = 'block';
-            return;
-        }
+}
 
-        // Hide placeholder and show posts
-        blogPlaceholder.style.display = 'none';
-        blogPostsContainer.style.display = 'block';
+// Example usage (call this in browser console):
+// addNewPost("My New Blog Post", "This is the excerpt for my new post", "Full content here", "my-new-post");
 
-        // Sort posts by date (newest first)
-        const sortedPosts = blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+// Example: Remove a blog post
+function removePost(slug) {
+    portfolioApp.removeBlogPost(slug);
+    console.log('Post removed:', slug);
+}
 
-        // Generate HTML for posts
-        const postsHTML = sortedPosts.map(post => {
-            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+// Initialize app when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        portfolioApp = new PortfolioApp();
+    });
+} else {
+    portfolioApp = new PortfolioApp();
+}
 
-            return `
-                <article class="blog-post" data-date="${post.date}">
-                    <h3 class="post-title">${post.title}</h3>
-                    <p class="post-date">${formattedDate}</p>
-                    <p class="post-excerpt">${post.excerpt}</p>
-                    <a href="#" class="read-more" onclick="portfolioApp.openPost('${post.slug || post.title}')">Read More</a>
-                </article>
-            `;
-        }).join('');
-
-        blogPostsContainer.
+// Preload optimization
+window.addEventListener('load', () => {
+    document.body.style.opacity = '1';
+});
