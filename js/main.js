@@ -215,17 +215,51 @@ class PortfolioApp {
 
     openPost(slug) {
         try {
-            // This function handles opening individual blog posts
-            // You can implement this to show full post content or redirect to a dedicated post page
             console.log('Opening post:', slug);
             
             // Find the post data
             const post = blogPosts.find(p => (p.slug || p.title) === slug);
             if (post) {
-                // Example: You could implement a modal or navigate to a separate page
-                // For now, this just shows an alert with post information
                 this.announceToScreenReader(`Opening blog post: ${post.title}`);
-                alert(`Blog post: "${post.title}"\n\nThis is where you could implement full post viewing functionality.`);
+                
+                // Create a new page with the blog post content
+                const newWindow = window.open('', '_blank');
+                if (newWindow) {
+                    newWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>${post.title} | Boril Koralski</title>
+                            <link rel="stylesheet" href="css/style.css">
+                            <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+                        </head>
+                        <body class="loaded">
+                            <div class="container">
+                                <article class="blog-post-full">
+                                    <header class="post-header">
+                                        <a href="javascript:window.close()" class="back-link">&larr; Close</a>
+                                        <h1 class="post-title">${post.title}</h1>
+                                        <p class="post-date">${new Date(post.date).toLocaleDateString('en-US', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric'
+                                        })}</p>
+                                    </header>
+                                    <div class="post-content">
+                                        <p class="post-excerpt">${post.excerpt}</p>
+                                        <div class="post-body">
+                                            ${post.content || '<p>Full content coming soon...</p>'}
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </body>
+                        </html>
+                    `);
+                    newWindow.document.close();
+                }
             } else {
                 console.warn('Post not found:', slug);
                 alert('Sorry, the requested blog post could not be found.');
