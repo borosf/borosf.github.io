@@ -1,3 +1,60 @@
+/* ==================================================
+   PORTFOLIO WEBSITE CSS
+   ==================================================
+   
+   This stylesheet contains optimized CSS for the 
+   Boril Koralski portfolio website with:
+   
+   ✅ CSS Custom Properties for maintainability
+   ✅ Accessibility enhancements (focus states, etc.)
+   ✅ Performance optimizations
+   ✅ Responsive design
+   ✅ Component-based approach
+   
+   ================================================== */
+
+/* CSS Custom Properties for Better Maintainability */
+:root {
+    /* Color Palette */
+    --color-primary: #000;
+    --color-secondary: #fff;
+    --color-accent: #00ff88;
+    --color-text-primary: #fff;
+    --color-text-secondary: rgba(255, 255, 255, 0.8);
+    --color-text-muted: rgba(255, 255, 255, 0.6);
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-hover: rgba(255, 255, 255, 0.25);
+    --color-bg-subtle: rgba(255, 255, 255, 0.02);
+    --color-bg-hover: rgba(255, 255, 255, 0.05);
+    
+    /* Animation Properties */
+    --animation-duration: 0.3s;
+    --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --animation-fade-duration: 0.8s;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Typography */
+    --font-size-xs: 0.6rem;
+    --font-size-sm: 0.75rem;
+    --font-size-md: 0.85rem;
+    --font-size-lg: 0.9rem;
+    --font-size-xl: 1.1rem;
+    --font-size-2xl: 1.8rem;
+    --font-size-3xl: 2.5rem;
+    
+    /* Layout */
+    --border-radius: 8px;
+    --border-radius-sm: 4px;
+    --nav-height: 120px;
+}
+
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -9,15 +66,15 @@
     position: absolute;
     top: -40px;
     left: 6px;
-    background: #000;
-    color: #fff;
-    padding: 8px;
+    background: var(--color-primary);
+    color: var(--color-secondary);
+    padding: var(--spacing-xs);
     text-decoration: none;
-    border-radius: 4px;
-    font-size: 0.9rem;
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-lg);
     font-weight: 500;
     z-index: 1000;
-    transition: top 0.3s;
+    transition: top var(--animation-duration) var(--animation-easing);
 }
 
 .skip-link:focus {
@@ -26,11 +83,33 @@
 
 body {
     font-family: 'JetBrains Mono', monospace;
-    background: #000;
-    color: #fff;
+    background: var(--color-primary);
+    color: var(--color-text-primary);
     overflow-x: hidden;
     height: 100vh;
     position: relative;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+body.loaded {
+    opacity: 1;
+}
+
+/* Fallback styles for when JavaScript fails */
+body.app-init-failed .nav-link {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+body.app-init-failed .dot {
+    pointer-events: none;
+}
+
+body.app-init-failed .content.hidden {
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* Top Navigation */
@@ -40,17 +119,17 @@ body {
     left: 0;
     right: 0;
     z-index: 100;
-    padding: 2rem 0;
+    padding: var(--spacing-lg) 0;
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .nav-links {
     display: flex;
     justify-content: center;
-    gap: 3rem;
+    gap: var(--spacing-xl);
     align-items: center;
     list-style: none;
     margin: 0;
@@ -58,32 +137,32 @@ body {
 }
 
 .nav-link {
-    color: #fff;
+    color: var(--color-text-primary);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: var(--font-size-md);
     font-weight: 400;
     letter-spacing: 0.2em;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--animation-duration) var(--animation-easing);
     position: relative;
     cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
     background: transparent;
 }
 
 .nav-link:focus {
-    outline: 2px solid #00ff88;
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
 }
 
 .nav-link:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-primary);
+    background: var(--color-border);
     transform: translateY(-2px);
 }
 
 .nav-link.active {
-    color: #fff;
+    color: var(--color-text-primary);
     background: rgba(255, 255, 255, 0.15);
 }
 
@@ -94,14 +173,44 @@ body {
     left: 50%;
     width: 0;
     height: 2px;
-    background: #fff;
-    transition: all 0.3s ease;
+    background: var(--color-text-primary);
+    transition: all var(--animation-duration) ease;
     transform: translateX(-50%);
 }
 
 .nav-link.active::after,
 .nav-link:hover::after {
     width: 80%;
+}
+
+/* Utility Classes */
+.focus-ring {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--border-radius-sm);
+}
+
+.sr-only {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Card Component */
+.card {
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-subtle);
+    border-radius: var(--border-radius);
+    transition: all var(--animation-duration) ease;
+}
+
+.card:hover {
+    background: var(--color-bg-hover);
+    transform: translateY(-2px);
+    border-color: var(--color-border-hover);
 }
 
 /* Geometric Background */
@@ -250,18 +359,12 @@ body {
 .info-item {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--spacing-xs);
     opacity: 0;
     transform: translateY(30px);
-    padding: 1rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
 }
 
 .info-item:hover {
-    background: rgba(255, 255, 255, 0.05);
     transform: translateY(-2px);
 }
 
@@ -380,19 +483,8 @@ body {
 }
 
 .blog-post {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.02);
+    margin-bottom: var(--spacing-lg);
     text-align: left;
-    transition: all 0.3s ease;
-}
-
-.blog-post:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .blog-post:last-child {
@@ -400,11 +492,11 @@ body {
 }
 
 .post-title {
-    font-size: 1.1rem;
+    font-size: var(--font-size-xl);
     font-weight: 400;
     letter-spacing: 0.05em;
-    margin-bottom: 0.5rem;
-    color: #fff;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-primary);
 }
 
 .post-date {
@@ -421,22 +513,32 @@ body {
     margin-bottom: 1rem;
 }
 
-.read-more {
-    font-size: 0.75rem;
-    color: #00ff88;
+/* Interactive Link Component */
+.interactive-link {
+    transition: all var(--animation-duration) ease;
     text-decoration: none;
+    border-radius: var(--border-radius-sm);
+}
+
+.interactive-link:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.read-more {
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
     letter-spacing: 0.1em;
-    transition: all 0.3s ease;
 }
 
 .read-more:focus {
-    outline: 2px solid #00ff88;
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
-    border-radius: 2px;
+    border-radius: var(--border-radius-sm);
 }
 
 .read-more:hover {
-    color: #fff;
+    color: var(--color-text-primary);
     text-decoration: underline;
 }
 
@@ -451,34 +553,17 @@ body {
 .contact-item {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.contact-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.25);
+    gap: var(--spacing-xs);
 }
 
 .contact-value a {
-    color: #fff;
+    color: var(--color-text-primary);
     text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.contact-value a:focus {
-    outline: 2px solid #00ff88;
-    outline-offset: 2px;
-    border-radius: 2px;
+    transition: color var(--animation-duration) ease;
 }
 
 .contact-value a:hover {
-    color: #00ff88;
+    color: var(--color-accent);
 }
 
 /* Navigation Dots */

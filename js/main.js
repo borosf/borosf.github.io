@@ -175,11 +175,11 @@ class PortfolioApp {
             const safeSlug = this.escapeHtml(post.slug || post.title);
 
             return `
-                <article class="blog-post" data-date="${post.date}">
+                <article class="blog-post card" data-date="${post.date}">
                     <h3 class="post-title">${safeTitle}</h3>
                     <p class="post-date"><time datetime="${post.date}">${formattedDate}</time></p>
                     <p class="post-excerpt" id="post-${index + 1}-excerpt">${safeExcerpt}</p>
-                    <a href="#" class="read-more" aria-describedby="post-${index + 1}-excerpt" onclick="portfolioApp.openPost('${safeSlug}')">Read More</a>
+                    <a href="#" class="read-more interactive-link" aria-describedby="post-${index + 1}-excerpt" onclick="portfolioApp.openPost('${safeSlug}')">Read More</a>
                 </article>
             `;
         }).join('');
@@ -362,10 +362,12 @@ if (document.readyState === 'loading') {
 // Preload optimization with error handling
 window.addEventListener('load', () => {
     try {
-        document.body.style.opacity = '1';
+        document.body.classList.add('loaded');
         console.log('Page load optimization completed');
     } catch (error) {
         console.warn('Load optimization failed:', error);
+        // Fallback: ensure body is visible
+        document.body.style.opacity = '1';
     }
 });
 
