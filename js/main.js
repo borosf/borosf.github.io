@@ -38,12 +38,12 @@ class PortfolioApp {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href');
                 // Only prevent default for hash links (contact)
-                if (href.startsWith('#')) {
+                if (href && href.startsWith('#')) {
                     e.preventDefault();
                     const section = href.substring(1);
                     this.switchSection(section);
                 }
-                // Let regular links (index.html, blog.html) work normally
+                // Let regular links (/, /blog.html) work normally
             });
         });
 
@@ -145,7 +145,7 @@ class PortfolioApp {
         
         // Error handling for missing elements
         if (!blogPostsContainer) {
-            console.warn('Blog posts container not found');
+            // Not a page with a blog list
             return;
         }
         
@@ -167,7 +167,7 @@ class PortfolioApp {
         // Sort posts by date (newest first)
         const sortedPosts = blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        // Generate HTML for posts
+        // Generate HTML for posts (link to per-post pages)
         const postsHTML = sortedPosts.map((post, index) => {
             const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -184,7 +184,7 @@ class PortfolioApp {
                     <h3 class="post-title">${safeTitle}</h3>
                     <p class="post-date"><time datetime="${post.date}">${formattedDate}</time></p>
                     <p class="post-excerpt" id="post-${index + 1}-excerpt">${safeExcerpt}</p>
-                    <a href="#" class="read-more interactive-link" aria-describedby="post-${index + 1}-excerpt" onclick="portfolioApp.openPost('${safeSlug}')">Read More</a>
+                    <a href="/blog/${safeSlug}/" class="read-more interactive-link" aria-describedby="post-${index + 1}-excerpt">Read More</a>
                 </article>
             `;
         }).join('');
@@ -218,56 +218,14 @@ class PortfolioApp {
         }, 1000);
     }
 
+    // For backward compatibility if called from elsewhere
     openPost(slug) {
         try {
-            console.log('Opening post:', slug);
-            
-            // Find the post data
-            const post = blogPosts.find(p => (p.slug || p.title) === slug);
-            if (post) {
-                this.announceToScreenReader(`Opening blog post: ${post.title}`);
-                
-                // Create a new page with the blog post content
-                const newWindow = window.open('', '_blank');
-                if (newWindow) {
-                    newWindow.document.write(`
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>${post.title} | Boril Koralski</title>
-                            <link rel="stylesheet" href="css/style.css">
-                            <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-                        </head>
-                        <body class="loaded">
-                            <div class="container">
-                                <article class="blog-post-full">
-                                    <header class="post-header">
-                                        <a href="javascript:window.close()" class="back-link">&larr; Close</a>
-                                        <h1 class="post-title">${post.title}</h1>
-                                        <p class="post-date">${new Date(post.date).toLocaleDateString('en-US', {
-                                            year: 'numeric',
-                                            month: 'long',
-                                            day: 'numeric'
-                                        })}</p>
-                                    </header>
-                                    <div class="post-content">
-                                        <p class="post-excerpt">${post.excerpt}</p>
-                                        <div class="post-body">
-                                            ${post.content || '<p>Full content coming soon...</p>'}
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-                        </body>
-                        </html>
-                    `);
-                    newWindow.document.close();
-                }
+            const safeSlug = String(slug || '').toLowerCase().replace(/[^a-z0-9\-]+/g, '-');
+            if (safeSlug) {
+                window.location.href = `/blog/${safeSlug}/`;
             } else {
-                console.warn('Post not found:', slug);
-                alert('Sorry, the requested blog post could not be found.');
+                console.warn('Invalid slug:', slug);
             }
         } catch (error) {
             console.error('Error opening post:', error);
@@ -290,7 +248,6 @@ class PortfolioApp {
                 observer.observe(item);
             });
         } catch (error) {
-            console.warn('IntersectionObserver not supported or failed to initialize:', error);
             // Fallback: Add fade-up class immediately
             document.querySelectorAll('.info-item, .blog-post, .contact-item').forEach(item => {
                 item.classList.add('fade-up');
@@ -327,13 +284,12 @@ class PortfolioApp {
             this.preloadCriticalResources();
             
         } catch (error) {
-            console.warn('Performance optimization failed:', error);
+            // swallow
         }
     }
 
     preloadCriticalResources() {
-        // Preload any critical images or resources that might be needed
-        // This is a placeholder for future resource preloading
+        // Placeholder for future resource preloading
         const criticalResources = [];
         
         criticalResources.forEach(resource => {
@@ -404,7 +360,6 @@ window.addEventListener('load', () => {
         document.body.classList.add('loaded');
         console.log('Page load optimization completed');
     } catch (error) {
-        console.warn('Load optimization failed:', error);
         // Fallback: ensure body is visible
         document.body.style.opacity = '1';
     }
