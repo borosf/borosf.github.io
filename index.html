@@ -8,12 +8,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <meta name="description" content="Boril Koralski - 21-year-old student at Sofia University studying Accounting, Finance & Digital Applications">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Boril Koralski - 21-year-old student at Sofia University studying Accounting, Finance & Digital Applications. FOSS advocate and Right to Repair supporter.">
     <meta name="author" content="Boril Koralski">
+    <meta name="keywords" content="Boril Koralski, FOSS, Open Source, Finance, Digital Applications, Portfolio, Sofia University">
     <meta name="theme-color" content="#000000">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Boril Koralski | Portfolio">
+    <meta property="og:description" content="Student of Accounting, Finance & Digital Applications. FOSS advocate and Right to Repair supporter.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://borosf.github.io">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Boril Koralski | Portfolio">
+    <meta name="twitter:description" content="Student of Accounting, Finance & Digital Applications. FOSS advocate and Right to Repair supporter.">
 </head>
-<body>
-    <div class="geometric-bg">
+<<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Decorative background shapes -->
+    <div class="geometric-bg" aria-hidden="true">
         <div class="shape circle circle-1"></div>
         <div class="shape circle circle-2"></div>
         <div class="shape square square-1"></div>
@@ -22,42 +40,45 @@
         <div class="shape triangle triangle-2"></div>
     </div>
     
-    <nav class="top-nav">
-        <div class="nav-links">
-            <a href="#home" class="nav-link active">HOME</a>
-            <a href="#blog" class="nav-link">BLOG</a>
-            <a href="#contact" class="nav-link">CONTACT</a>
-        </div>
+    <!-- Main Navigation -->
+    <nav class="top-nav" role="navigation" aria-label="Main navigation">
+        <ul class="nav-links" role="menubar">
+            <li role="none"><a href="#home" class="nav-link active" role="menuitem" aria-current="page">HOME</a></li>
+            <li role="none"><a href="#blog" class="nav-link" role="menuitem">BLOG</a></li>
+            <li role="none"><a href="#contact" class="nav-link" role="menuitem">CONTACT</a></li>
+        </ul>
     </nav>
 
-    <div class="container">
-        <div class="content" id="home-content">
-            <div class="name-section">
-                <h1 class="name">BORIL KORALSKI</h1>
-                <div class="underline"></div>
-            </div>
+    <!-- Main Content Container -->
+    <main class="container" id="main-content"  role="main">
+        <!-- Home Section -->
+        <section class="content" id="home-content" aria-labelledby="home-title">
+            <header class="name-section">
+                <h1 id="home-title" class="name">BORIL KORALSKI</h1>
+                <div class="underline" aria-hidden="true"></div>
+            </header>
             
-            <div class="info-grid">
-                <div class="info-item fade-up">
-                    <span class="label">AGE</span>
-                    <span class="value">21</span>
+            <div class="info-grid" role="group" aria-label="Personal information">
+                <div class="info-item card fade-up">
+                    <span class="label" id="age-label">AGE</span>
+                    <span class="value" aria-labelledby="age-label">21</span>
                 </div>
-                <div class="info-item fade-up">
-                    <span class="label">LOCATION</span>
-                    <span class="value">SOFIA, BG</span>
+                <div class="info-item card fade-up">
+                    <span class="label" id="location-label">LOCATION</span>
+                    <span class="value" aria-labelledby="location-label">SOFIA, BG</span>
                 </div>
-                <div class="info-item fade-up">
-                    <span class="label">UNIVERSITY</span>
-                    <span class="value">ST. KLIMENT OHRIDSKI<br>SOFIA UNIVERSITY</span>
+                <div class="info-item card fade-up">
+                    <span class="label" id="university-label">UNIVERSITY</span>
+                    <span class="value" aria-labelledby="university-label">ST. KLIMENT OHRIDSKI<br>SOFIA UNIVERSITY</span>
                 </div>
-                <div class="info-item fade-up">
-                    <span class="label">FIELD</span>
-                    <span class="value">ACCOUNTING, FINANCE<br>& DIGITAL APPLICATIONS</span>
+                <div class="info-item card fade-up">
+                    <span class="label" id="field-label">FIELD</span>
+                    <span class="value" aria-labelledby="field-label">ACCOUNTING, FINANCE<br>& DIGITAL APPLICATIONS</span>
                 </div>
             </div>
             
             <div class="values-section">
-                <div class="values-grid">
+                <div class="values-grid" role="group" aria-label="Values and interests">
                     <div class="value-item">
                         <span class="value-label">FOSS ADVOCATE</span>
                     </div>
@@ -67,33 +88,34 @@
                 </div>
             </div>
             
-            <div class="status">
-                <div class="status-indicator"></div>
+            <div class="status" role="status" aria-live="polite">
+                <div class="status-indicator" aria-hidden="true"></div>
                 <span class="status-text">AVAILABLE FOR OPPORTUNITIES</span>
             </div>
-        </div>
+        </section>
 
-        <div class="content hidden" id="blog-content">
-            <div class="name-section">
-                <h1 class="page-title">BLOG</h1>
-                <div class="underline"></div>
-            </div>
+        <!-- Blog Section -->
+        <section class="content hidden" id="blog-content" aria-labelledby="blog-title">
+            <header class="name-section">
+                <h1 id="blog-title" class="page-title">BLOG</h1>
+                <div class="underline" aria-hidden="true"></div>
+            </header>
             <div class="blog-section">
                 <!-- Blog posts will be dynamically loaded here -->
-                <div class="blog-posts" id="blog-posts">
+                <div class="blog-posts" id="blog-posts" role="feed" aria-label="Blog posts">
                     <!-- Example blog posts - you can remove these and add real ones -->
-                    <article class="blog-post" data-date="2024-01-15">
+                    <article class="blog-post card" data-date="2024-01-15">
                         <h3 class="post-title">The Future of Open Source Finance</h3>
-                        <p class="post-date">January 15, 2024</p>
-                        <p class="post-excerpt">Exploring how FOSS principles are revolutionizing the financial sector...</p>
-                        <a href="#" class="read-more">Read More</a>
+                        <p class="post-date"><time datetime="2024-01-15">January 15, 2024</time></p>
+                        <p class="post-excerpt" id="post-1-excerpt">Exploring how FOSS principles are revolutionizing the financial sector...</p>
+                        <a href="#" class="read-more interactive-link" aria-describedby="post-1-excerpt">Read More</a>
                     </article>
                     
-                    <article class="blog-post" data-date="2024-01-10">
+                    <article class="blog-post card" data-date="2024-01-10">
                         <h3 class="post-title">Right to Repair in Digital Age</h3>
-                        <p class="post-date">January 10, 2024</p>
-                        <p class="post-excerpt">Why device longevity matters more than ever in our digital economy...</p>
-                        <a href="#" class="read-more">Read More</a>
+                        <p class="post-date"><time datetime="2024-01-10">January 10, 2024</time></p>
+                        <p class="post-excerpt" id="post-2-excerpt">Why device longevity matters more than ever in our digital economy...</p>
+                        <a href="#" class="read-more interactive-link" aria-describedby="post-2-excerpt">Read More</a>
                     </article>
                 </div>
                 
@@ -104,46 +126,53 @@
                     <p>Content coming soon – stay tuned for deep dives into FOSS advocacy, sustainable technology practices, and the evolving landscape of digital finance.</p>
                 </div>
             </div>
-            <div class="status">
-                <div class="status-indicator"></div>
+            <div class="status" role="status" aria-live="polite">
+                <div class="status-indicator" aria-hidden="true"></div>
                 <span class="status-text">CRAFTING MEANINGFUL CONTENT</span>
             </div>
-        </div>
+        </section>
 
-        <div class="content hidden" id="contact-content">
-            <div class="name-section">
-                <h1 class="page-title">CONTACT</h1>
-                <div class="underline"></div>
-            </div>
+        <!-- Contact Section -->
+        <section class="content hidden" id="contact-content" aria-labelledby="contact-title">
+            <header class="name-section">
+                <h1 id="contact-title" class="page-title">CONTACT</h1>
+                <div class="underline" aria-hidden="true"></div>
+            </header>
             <div class="contact-section">
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <span class="contact-label">EMAIL</span>
-                        <span class="contact-value"><a href="mailto:koralsky11@gmail.com">koralsky11@gmail.com</a></span>
+                <div class="contact-grid" role="group" aria-label="Contact information">
+                    <div class="contact-item card">
+                        <span class="contact-label" id="email-label">EMAIL</span>
+                        <span class="contact-value" aria-labelledby="email-label">
+                            <a href="mailto:koralsky11@gmail.com" class="interactive-link" aria-label="Send email to koralsky11@gmail.com">koralsky11@gmail.com</a>
+                        </span>
                     </div>
-                    <div class="contact-item">
-                        <span class="contact-label">GITHUB</span>
-                        <span class="contact-value"><a href="https://github.com/borosf" target="_blank">github.com/borosf</a></span>
+                    <div class="contact-item card">
+                        <span class="contact-label" id="github-label">GITHUB</span>
+                        <span class="contact-value" aria-labelledby="github-label">
+                            <a href="https://github.com/borosf" target="_blank" rel="noopener noreferrer" class="interactive-link" aria-label="Visit GitHub profile (opens in new tab)">github.com/borosf</a>
+                        </span>
                     </div>
-                    <div class="contact-item">
-                        <span class="contact-label">LOCATION</span>
-                        <span class="contact-value">Sofia, Bulgaria</span>
+                    <div class="contact-item card">
+                        <span class="contact-label" id="contact-location-label">LOCATION</span>
+                        <span class="contact-value" aria-labelledby="contact-location-label">Sofia, Bulgaria</span>
                     </div>
                 </div>
             </div>
-            <div class="status contact-status">
-                <div class="status-indicator"></div>
+            <div class="status contact-status" role="status" aria-live="polite">
+                <div class="status-indicator" aria-hidden="true"></div>
                 <span class="status-text">READY TO COLLABORATE</span>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
     
-    <div class="nav-dots">
-        <div class="dot active" data-section="home"></div>
-        <div class="dot" data-section="blog"></div>
-        <div class="dot" data-section="contact"></div>
-    </div>
+    <!-- Secondary Navigation (Dots) -->
+    <nav class="nav-dots" role="navigation" aria-label="Page navigation">
+        <button class="dot active" data-section="home" aria-label="Go to home section" aria-current="page"></button>
+        <button class="dot" data-section="blog" aria-label="Go to blog section"></button>
+        <button class="dot" data-section="contact" aria-label="Go to contact section"></button>
+    </nav>
     
-    <script src="js/main.js"></script>
+    <!-- Optimized Script Loading -->
+    <script src="js/main.js" defer></script>
 </body>
 </html>

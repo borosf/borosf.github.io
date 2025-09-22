@@ -42,12 +42,21 @@ class PortfolioApp {
             });
         });
 
-        // Side navigation dots
+        // Side navigation dots (now buttons)
         const dots = document.querySelectorAll('.dot');
         dots.forEach(dot => {
             dot.addEventListener('click', () => {
                 const section = dot.getAttribute('data-section');
                 this.switchSection(section);
+            });
+            
+            // Add keyboard support for Enter and Space
+            dot.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const section = dot.getAttribute('data-section');
+                    this.switchSection(section);
+                }
             });
         });
 
@@ -80,11 +89,23 @@ class PortfolioApp {
 
         // Update navigation states
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === `#${section}`);
+            const isActive = link.getAttribute('href') === `#${section}`;
+            link.classList.toggle('active', isActive);
+            if (isActive) {
+                link.setAttribute('aria-current', 'page');
+            } else {
+                link.removeAttribute('aria-current');
+            }
         });
 
         document.querySelectorAll('.dot').forEach(dot => {
-            dot.classList.toggle('active', dot.getAttribute('data-section') === section);
+            const isActive = dot.getAttribute('data-section') === section;
+            dot.classList.toggle('active', isActive);
+            if (isActive) {
+                dot.setAttribute('aria-current', 'page');
+            } else {
+                dot.removeAttribute('aria-current');
+            }
         });
 
         // Switch content with smooth transition
@@ -104,6 +125,9 @@ class PortfolioApp {
                     targetContent.style.transform = 'scale(1)';
                     targetContent.style.opacity = '1';
                 });
+                
+                // Announce section change to screen readers
+                this.announceToScreenReader(`Switched to ${section} section`);
             }, 200);
         }
 
@@ -114,52 +138,172 @@ class PortfolioApp {
         const blogPostsContainer = document.getElementById('blog-posts');
         const blogPlaceholder = document.getElementById('blog-placeholder');
         
+        // Error handling for missing elements
+        if (!blogPostsContainer) {
+            console.warn('Blog posts container not found');
+            return;
+        }
+        
         if (blogPosts.length === 0) {
             // Show placeholder if no posts
-            blogPostsContainer.innerHTML = postsHTML;
+            blogPostsContainer.style.display = 'none';
+            if (blogPlaceholder) {
+                blogPlaceholder.style.display = 'block';
+            }
+            return;
+        }
+
+        // Hide placeholder and show posts
+        if (blogPlaceholder) {
+            blogPlaceholder.style.display = 'none';
+        }
+        blogPostsContainer.style.display = 'block';
+
+        // Sort posts by date (newest first)
+        const sortedPosts = blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Generate HTML for posts
+        const postsHTML = sortedPosts.map((post, index) => {
+            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const safeTitle = this.escapeHtml(post.title);
+            const safeExcerpt = this.escapeHtml(post.excerpt);
+            const safeSlug = this.escapeHtml(post.slug || post.title);
+
+            return `
+                <article class="blog-post card" data-date="${post.date}">
+                    <h3 class="post-title">${safeTitle}</h3>
+                    <p class="post-date"><time datetime="${post.date}">${formattedDate}</time></p>
+                    <p class="post-excerpt" id="post-${index + 1}-excerpt">${safeExcerpt}</p>
+                    <a href="#" class="read-more interactive-link" aria-describedby="post-${index + 1}-excerpt" onclick="portfolioApp.openPost('${safeSlug}')">Read More</a>
+                </article>
+            `;
+        }).join('');
+
+        blogPostsContainer.innerHTML = postsHTML;
+    }
+
+    // Helper method to escape HTML to prevent XSS
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Screen reader announcement helper
+    announceToScreenReader(message) {
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.style.position = 'absolute';
+        announcement.style.left = '-10000px';
+        announcement.style.width = '1px';
+        announcement.style.height = '1px';
+        announcement.style.overflow = 'hidden';
+        announcement.textContent = message;
+        
+        document.body.appendChild(announcement);
+        
+        setTimeout(() => {
+            document.body.removeChild(announcement);
+        }, 1000);
     }
 
     openPost(slug) {
-        // This function handles opening individual blog posts
-        // You can implement this to show full post content or redirect to a dedicated post page
-        console.log('Opening post:', slug);
-        
-        // Example: You could implement a modal or navigate to a separate page
-        // For now, this just logs the action
-        alert('Blog post functionality - you can implement full post viewing here!');
+        try {
+            // This function handles opening individual blog posts
+            // You can implement this to show full post content or redirect to a dedicated post page
+            console.log('Opening post:', slug);
+            
+            // Find the post data
+            const post = blogPosts.find(p => (p.slug || p.title) === slug);
+            if (post) {
+                // Example: You could implement a modal or navigate to a separate page
+                // For now, this just shows an alert with post information
+                this.announceToScreenReader(`Opening blog post: ${post.title}`);
+                alert(`Blog post: "${post.title}"\n\nThis is where you could implement full post viewing functionality.`);
+            } else {
+                console.warn('Post not found:', slug);
+                alert('Sorry, the requested blog post could not be found.');
+            }
+        } catch (error) {
+            console.error('Error opening post:', error);
+            alert('An error occurred while trying to open the blog post.');
+        }
     }
 
     initializeAnimations() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-up');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '50px' });
+        try {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-up');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '50px' });
 
-        document.querySelectorAll('.info-item').forEach(item => {
-            observer.observe(item);
-        });
+            const elementsToObserve = document.querySelectorAll('.info-item, .blog-post, .contact-item');
+            elementsToObserve.forEach(item => {
+                observer.observe(item);
+            });
+        } catch (error) {
+            console.warn('IntersectionObserver not supported or failed to initialize:', error);
+            // Fallback: Add fade-up class immediately
+            document.querySelectorAll('.info-item, .blog-post, .contact-item').forEach(item => {
+                item.classList.add('fade-up');
+            });
+        }
     }
 
     optimizePerformance() {
-        // Reduce motion for accessibility
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.documentElement.style.setProperty('--animation-duration', '0.01s');
+        try {
+            // Reduce motion for accessibility
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.documentElement.style.setProperty('--animation-duration', '0.01s');
+                
+                // Disable shape animations for motion-sensitive users
+                const shapes = document.querySelectorAll('.shape');
+                shapes.forEach(shape => {
+                    shape.style.animation = 'none';
+                });
+            }
+
+            // Optimize geometric shapes on resize with debouncing
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    this.optimizeShapes();
+                }, 150);
+            });
+
+            // Initial shape optimization
+            this.optimizeShapes();
+            
+            // Preload critical resources
+            this.preloadCriticalResources();
+            
+        } catch (error) {
+            console.warn('Performance optimization failed:', error);
         }
+    }
 
-        // Optimize geometric shapes on resize
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                this.optimizeShapes();
-            }, 150);
+    preloadCriticalResources() {
+        // Preload any critical images or resources that might be needed
+        // This is a placeholder for future resource preloading
+        const criticalResources = [];
+        
+        criticalResources.forEach(resource => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.href = resource.url;
+            link.as = resource.type;
+            document.head.appendChild(link);
         });
-
-        // Initial shape optimization
-        this.optimizeShapes();
     }
 
     optimizeShapes() {
@@ -196,73 +340,94 @@ class PortfolioApp {
 // Global variable to access the app instance
 let portfolioApp;
 
+// Enhanced initialization with error handling
+function initializeApp() {
+    try {
+        portfolioApp = new PortfolioApp();
+        console.log('Portfolio app initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize portfolio app:', error);
+        // Provide basic fallback functionality
+        document.body.classList.add('app-init-failed');
+    }
+}
+
 // Initialize app when DOM is ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        portfolioApp = new PortfolioApp();
-    });
+    document.addEventListener('DOMContentLoaded', initializeApp);
 } else {
-    portfolioApp = new PortfolioApp();
+    initializeApp();
 }
 
-// Preload optimization
+// Preload optimization with error handling
 window.addEventListener('load', () => {
-    document.body.style.opacity = '1';
+    try {
+        document.body.classList.add('loaded');
+        console.log('Page load optimization completed');
+    } catch (error) {
+        console.warn('Load optimization failed:', error);
+        // Fallback: ensure body is visible
+        document.body.style.opacity = '1';
+    }
 });
 
-// Helper functions for blog management
+// Helper functions for blog management with enhanced error handling
 // You can call these from the browser console or integrate them into your workflow
 
-// Example: Add a new blog post
+/**
+ * Add a new blog post to the portfolio
+ * @param {string} title - The title of the blog post
+ * @param {string} excerpt - The excerpt/summary of the post
+ * @param {string} content - Full content (optional)
+ * @param {string} slug - URL slug (optional, will be generated from title if not provided)
+ */
 function addNewPost(title, excerpt, content = '', slug = '') {
-    const today = new Date().toISOString().split('T')[0];
-    const newPost = {
-        title: title,
-        date: today,
-        excerpt: excerpt,
-        content: content,
-        slug: slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-    };
-    
-    portfolioApp.addBlogPost(newPost);
-    console.log('New post added:', newPost);
+    try {
+        if (!title || !excerpt) {
+            throw new Error('Title and excerpt are required');
+        }
+        
+        const today = new Date().toISOString().split('T')[0];
+        const newPost = {
+            title: title.trim(),
+            date: today,
+            excerpt: excerpt.trim(),
+            content: content.trim(),
+            slug: slug.trim() || title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+        };
+        
+        if (portfolioApp && typeof portfolioApp.addBlogPost === 'function') {
+            portfolioApp.addBlogPost(newPost);
+            console.log('New post added successfully:', newPost);
+            return newPost;
+        } else {
+            throw new Error('Portfolio app not initialized or addBlogPost method not available');
+        }
+    } catch (error) {
+        console.error('Failed to add new post:', error);
+        return null;
+    }
 }
 
-// Example usage (call this in browser console):
-// addNewPost("My New Blog Post", "This is the excerpt for my new post", "Full content here", "my-new-post");
-
-// Example: Remove a blog post
+/**
+ * Remove a blog post by slug
+ * @param {string} slug - The slug of the post to remove
+ */
 function removePost(slug) {
-    portfolioApp.removeBlogPost(slug);
-    console.log('Post removed:', slug);
-}style.display = 'none';
-            blogPlaceholder.style.display = 'block';
-            return;
+    try {
+        if (!slug) {
+            throw new Error('Slug is required');
         }
-
-        // Hide placeholder and show posts
-        blogPlaceholder.style.display = 'none';
-        blogPostsContainer.style.display = 'block';
-
-        // Sort posts by date (newest first)
-        const sortedPosts = blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        // Generate HTML for posts
-        const postsHTML = sortedPosts.map(post => {
-            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-
-            return `
-                <article class="blog-post" data-date="${post.date}">
-                    <h3 class="post-title">${post.title}</h3>
-                    <p class="post-date">${formattedDate}</p>
-                    <p class="post-excerpt">${post.excerpt}</p>
-                    <a href="#" class="read-more" onclick="portfolioApp.openPost('${post.slug || post.title}')">Read More</a>
-                </article>
-            `;
-        }).join('');
-
-        blogPostsContainer.
+        
+        if (portfolioApp && typeof portfolioApp.removeBlogPost === 'function') {
+            portfolioApp.removeBlogPost(slug);
+            console.log('Post removed successfully:', slug);
+            return true;
+        } else {
+            throw new Error('Portfolio app not initialized or removeBlogPost method not available');
+        }
+    } catch (error) {
+        console.error('Failed to remove post:', error);
+        return false;
+    }
+}
