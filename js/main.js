@@ -29,6 +29,10 @@ class PortfolioApp {
         this.initializeAnimations();
         this.loadBlogPosts();
         this.optimizePerformance();
+
+        // NEW: Handle deep links like /index.html#contact on load and when hash changes
+        this.handleHashNavigation();
+        window.addEventListener('hashchange', () => this.handleHashNavigation());
     }
 
     setupNavigation() {
@@ -87,6 +91,33 @@ class PortfolioApp {
                     break;
             }
         });
+    }
+
+    // NEW: Deep-link handling for #home and #contact
+    handleHashNavigation() {
+        try {
+            const raw = window.location.hash || '';
+            const hash = raw.startsWith('#') ? raw.slice(1) : raw;
+            if (!hash) return;
+
+            const allowed = ['home', 'contact'];
+            if (!allowed.includes(hash)) return;
+
+            // Switch to the requested section and then scroll to it
+            // Use a short delay to ensure DOM and transitions are ready
+            setTimeout(() => {
+                this.switchSection(hash);
+                // After the transition starts, give it a moment before scrolling
+                setTimeout(() => {
+                    const target = document.getElementById(`${hash}-content`) || document.getElementById(hash);
+                    if (target && typeof target.scrollIntoView === 'function') {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 250);
+            }, 0);
+        } catch {
+            // no-op
+        }
     }
 
     switchSection(section) {
