@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    ...
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boril Koralski | Portfolio</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Boril Koralski - 21-year-old student at Sofia University studying Accounting, Finance & Digital Applications. FOSS advocate and Right to Repair supporter.">
+    <meta name="author" content="Boril Koralski">
+    <meta name="keywords" content="Boril Koralski, FOSS, Open Source, Finance, Digital Applications, Portfolio, Sofia University">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Boril Koralski | Portfolio">
+    <meta property="og:description" content="Student of Accounting, Finance & Digital Applications. FOSS advocate and Right to Repair supporter.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://borosf.github.io">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Boril Koralski | Portfolio">
+    <meta name="twitter:description" content="Student of Accounting, Finance & Digital Applications. FOSS advocate and Right to Repair supporter.">
 </head>
 <body>
     <!-- Skip Link for Accessibility -->
@@ -9,7 +32,12 @@
     
     <!-- Decorative background shapes -->
     <div class="geometric-bg" aria-hidden="true">
-        ...
+        <div class="shape circle circle-1"></div>
+        <div class="shape circle circle-2"></div>
+        <div class="shape square square-1"></div>
+        <div class="shape square square-2"></div>
+        <div class="shape triangle triangle-1"></div>
+        <div class="shape triangle triangle-2"></div>
     </div>
     
     <!-- Main Navigation -->
@@ -25,34 +53,87 @@
     <main class="container" id="main-content"  role="main">
         <!-- Home Section -->
         <section class="content" id="home-content" aria-labelledby="home-title">
-            ...
+            <header class="name-section">
+                <h1 id="home-title" class="name">BORIL KORALSKI</h1>
+                <div class="underline" aria-hidden="true"></div>
+            </header>
+            
+            <div class="info-grid" role="group" aria-label="Personal information">
+                <div class="info-item card fade-up">
+                    <span class="label" id="age-label">AGE</span>
+                    <span class="value" aria-labelledby="age-label">21</span>
+                </div>
+                <div class="info-item card fade-up">
+                    <span class="label" id="location-label">LOCATION</span>
+                    <span class="value" aria-labelledby="location-label">SOFIA, BG</span>
+                </div>
+                <div class="info-item card fade-up">
+                    <span class="label" id="university-label">UNIVERSITY</span>
+                    <span class="value" aria-labelledby="university-label">ST. KLIMENT OHRIDSKI<br>SOFIA UNIVERSITY</span>
+                </div>
+                <div class="info-item card fade-up">
+                    <span class="label" id="field-label">FIELD</span>
+                    <span class="value" aria-labelledby="field-label">ACCOUNTING, FINANCE<br>& DIGITAL APPLICATIONS</span>
+                </div>
+            </div>
+            
+            <div class="values-section">
+                <div class="values-grid" role="group" aria-label="Values and interests">
+                    <div class="value-item">
+                        <span class="value-label">FOSS ADVOCATE</span>
+                    </div>
+                    <div class="value-item">
+                        <span class="value-label">RIGHT TO REPAIR SUPPORTER</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="status" role="status" aria-live="polite">
+                <div class="status-indicator" aria-hidden="true"></div>
+                <span class="status-text">AVAILABLE FOR OPPORTUNITIES</span>
+            </div>
         </section>
 
         <!-- Contact Section -->
         <section class="content hidden" id="contact-content" aria-labelledby="contact-title">
-            <!-- Invisible anchor so browsers can jump to #contact even before JS runs -->
-            <div id="contact" class="sr-only" aria-hidden="true"></div>
-
             <header class="name-section">
                 <h1 id="contact-title" class="page-title">CONTACT</h1>
                 <div class="underline" aria-hidden="true"></div>
             </header>
             <div class="contact-section">
-                ...
+                <div class="contact-grid" role="group" aria-label="Contact information">
+                    <div class="contact-item card">
+                        <span class="contact-label" id="email-label">EMAIL</span>
+                        <span class="contact-value" aria-labelledby="email-label">
+                            <a href="mailto:koralsky11@gmail.com" class="interactive-link" aria-label="Send email to koralsky11@gmail.com">koralsky11@gmail.com</a>
+                        </span>
+                    </div>
+                    <div class="contact-item card">
+                        <span class="contact-label" id="github-label">GITHUB</span>
+                        <span class="contact-value" aria-labelledby="github-label">
+                            <a href="https://github.com/borosf" target="_blank" rel="noopener noreferrer" class="interactive-link" aria-label="Visit GitHub profile (opens in new tab)">github.com/borosf</a>
+                        </span>
+                    </div>
+                    <div class="contact-item card">
+                        <span class="contact-label" id="contact-location-label">LOCATION</span>
+                        <span class="contact-value" aria-labelledby="contact-location-label">Sofia, Bulgaria</span>
+                    </div>
+                </div>
             </div>
             <div class="status contact-status" role="status" aria-live="polite">
-                ...
+                <div class="status-indicator" aria-hidden="true"></div>
+                <span class="status-text">READY TO COLLABORATE</span>
             </div>
         </section>
     </main>
-
+    
     <!-- Secondary Navigation (Dots) -->
     <nav class="nav-dots" role="navigation" aria-label="Page navigation">
         <button class="dot active" data-section="home" aria-label="Go to home section" aria-current="page"></button>
         <button class="dot" data-section="contact" aria-label="Go to contact section"></button>
     </nav>
-
+    
     <!-- Optimized Script Loading -->
-    <script src="js/main.js" defer></script>
+    <script src="/js/main.js" defer></script>
 </body>
 </html>
