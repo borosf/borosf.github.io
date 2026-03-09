@@ -1,22 +1,3 @@
-// Blog posts data - Add your posts here
-const blogPosts = [
-    {
-        title: "The Future of Open Source Finance",
-        date: "2024-01-15",
-        excerpt: "Exploring how FOSS principles are revolutionizing the financial sector and creating more transparent, accessible financial tools for everyone.",
-        content: "Your full blog post content goes here...", // Optional: for full post view
-        slug: "future-of-open-source-finance" // Optional: for URL routing
-    },
-    {
-        title: "Right to Repair in Digital Age",
-        date: "2024-01-10",
-        excerpt: "Why device longevity matters more than ever in our digital economy, and how the right to repair movement is shaping sustainable technology practices.",
-        content: "Your full blog post content goes here...",
-        slug: "right-to-repair-digital-age"
-    }
-    // Add more posts here as needed
-];
-
 // Optimized and streamlined JavaScript
 class PortfolioApp {
     constructor() {
@@ -27,7 +8,6 @@ class PortfolioApp {
     init() {
         this.setupNavigation();
         this.initializeAnimations();
-        this.loadBlogPosts();
         this.optimizePerformance();
 
         // Handle deep links like /index.html#contact on load and when hash changes
@@ -170,66 +150,6 @@ class PortfolioApp {
         this.currentSection = section;
     }
 
-    loadBlogPosts() {
-        const blogPostsContainer = document.getElementById('blog-posts');
-        const blogPlaceholder = document.getElementById('blog-placeholder');
-        
-        // Error handling for missing elements
-        if (!blogPostsContainer) {
-            // Not a page with a blog list
-            return;
-        }
-        
-        if (blogPosts.length === 0) {
-            // Show placeholder if no posts
-            blogPostsContainer.style.display = 'none';
-            if (blogPlaceholder) {
-                blogPlaceholder.style.display = 'block';
-            }
-            return;
-        }
-
-        // Hide placeholder and show posts
-        if (blogPlaceholder) {
-            blogPlaceholder.style.display = 'none';
-        }
-        blogPostsContainer.style.display = 'block';
-
-        // Sort posts by date (newest first)
-        const sortedPosts = blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        // Generate HTML for posts (link to per-post pages)
-        const postsHTML = sortedPosts.map((post, index) => {
-            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-
-            const safeTitle = this.escapeHtml(post.title);
-            const safeExcerpt = this.escapeHtml(post.excerpt);
-            const safeSlug = this.escapeHtml(post.slug || post.title);
-
-            return `
-                <article class="blog-post card" data-date="${post.date}">
-                    <h3 class="post-title">${safeTitle}</h3>
-                    <p class="post-date"><time datetime="${post.date}">${formattedDate}</time></p>
-                    <p class="post-excerpt" id="post-${index + 1}-excerpt">${safeExcerpt}</p>
-                    <a href="/blog/${safeSlug}/" class="read-more interactive-link" aria-describedby="post-${index + 1}-excerpt">Read More</a>
-                </article>
-            `;
-        }).join('');
-
-        blogPostsContainer.innerHTML = postsHTML;
-    }
-
-    // Helper method to escape HTML to prevent XSS
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
     // Screen reader announcement helper
     announceToScreenReader(message) {
         const announcement = document.createElement('div');
@@ -249,21 +169,6 @@ class PortfolioApp {
         }, 1000);
     }
 
-    // For backward compatibility if called from elsewhere
-    openPost(slug) {
-        try {
-            const safeSlug = String(slug || '').toLowerCase().replace(/[^a-z0-9\-]+/g, '-');
-            if (safeSlug) {
-                window.location.href = `/blog/${safeSlug}/`;
-            } else {
-                console.warn('Invalid slug:', slug);
-            }
-        } catch (error) {
-            console.error('Error opening post:', error);
-            alert('An error occurred while trying to open the blog post.');
-        }
-    }
-
     initializeAnimations() {
         try {
             const observer = new IntersectionObserver((entries) => {
@@ -274,13 +179,13 @@ class PortfolioApp {
                 });
             }, { threshold: 0.1, rootMargin: '50px' });
 
-            const elementsToObserve = document.querySelectorAll('.info-item, .blog-post, .contact-item');
+            const elementsToObserve = document.querySelectorAll('.info-item, .contact-item');
             elementsToObserve.forEach(item => {
                 observer.observe(item);
             });
         } catch (error) {
             // Fallback: Add fade-up class immediately
-            document.querySelectorAll('.info-item, .blog-post, .contact-item').forEach(item => {
+            document.querySelectorAll('.info-item, .contact-item').forEach(item => {
                 item.classList.add('fade-up');
             });
         }
@@ -347,20 +252,6 @@ class PortfolioApp {
         });
     }
 
-    // Method to add new blog posts dynamically
-    addBlogPost(post) {
-        blogPosts.unshift(post); // Add to beginning of array
-        this.loadBlogPosts(); // Reload the blog posts
-    }
-
-    // Method to remove blog posts
-    removeBlogPost(slug) {
-        const index = blogPosts.findIndex(post => (post.slug || post.title) === slug);
-        if (index > -1) {
-            blogPosts.splice(index, 1);
-            this.loadBlogPosts();
-        }
-    }
 }
 
 // Global variable to access the app instance
@@ -395,64 +286,3 @@ window.addEventListener('load', () => {
         document.body.style.opacity = '1';
     }
 });
-
-// Helper functions for blog management with enhanced error handling
-// You can call these from the browser console or integrate them into your workflow
-
-/**
- * Add a new blog post to the portfolio
- * @param {string} title - The title of the blog post
- * @param {string} excerpt - The excerpt/summary of the post
- * @param {string} content - Full content (optional)
- * @param {string} slug - URL slug (optional, will be generated from title if not provided)
- */
-function addNewPost(title, excerpt, content = '', slug = '') {
-    try {
-        if (!title || !excerpt) {
-            throw new Error('Title and excerpt are required');
-        }
-        
-        const today = new Date().toISOString().split('T')[0];
-        const newPost = {
-            title: title.trim(),
-            date: today,
-            excerpt: excerpt.trim(),
-            content: content.trim(),
-            slug: slug.trim() || title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-        };
-        
-        if (portfolioApp && typeof portfolioApp.addBlogPost === 'function') {
-            portfolioApp.addBlogPost(newPost);
-            console.log('New post added successfully:', newPost);
-            return newPost;
-        } else {
-            throw new Error('Portfolio app not initialized or addBlogPost method not available');
-        }
-    } catch (error) {
-        console.error('Failed to add new post:', error);
-        return null;
-    }
-}
-
-/**
- * Remove a blog post by slug
- * @param {string} slug - The slug of the post to remove
- */
-function removePost(slug) {
-    try {
-        if (!slug) {
-            throw new Error('Slug is required');
-        }
-        
-        if (portfolioApp && typeof portfolioApp.removeBlogPost === 'function') {
-            portfolioApp.removeBlogPost(slug);
-            console.log('Post removed successfully:', slug);
-            return true;
-        } else {
-            throw new Error('Portfolio app not initialized or removeBlogPost method not available');
-        }
-    } catch (error) {
-        console.error('Failed to remove post:', error);
-        return false;
-    }
-}
